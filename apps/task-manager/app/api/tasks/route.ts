@@ -5,11 +5,29 @@ export async function POST(request: Request) {
   try {
     const json = await request.json();
 
-    const user = await prisma.task.create({
-      data: json,
+    const newTask = await prisma.task.create({
+      data: json
     });
 
-    return new NextResponse(JSON.stringify(user), {
+
+    // Connect task to existing user!
+    const id = json.userId;
+    console.log('Task payload:', newTask);
+
+    if (id && newTask.id) {
+      await prisma.user.update({
+        where: { id },
+        data: {
+          task: {
+            connect: {
+              id: newTask.id
+            }
+          }
+        }
+      });
+    }
+
+    return new NextResponse(JSON.stringify(newTask), {
      status: 201,
      headers: { "Content-Type": "application/json" },
     });

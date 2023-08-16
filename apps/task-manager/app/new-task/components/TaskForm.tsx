@@ -50,13 +50,13 @@ const TaskForm = (props: UsersProps ) => {
       console.log('Payload before:', payload);
 
       payload.avatar = '';
-      payload.user = payload.assignee;
       payload.userId = payload.assignee.id;
       payload.status = payload.status.name;
       payload.description = `${payload.description}`
 
       delete payload.created_at;
       delete payload.assignee;
+      delete payload.user
 
       setloading(true);
       const req = await fetch(`/api/tasks`, {
@@ -70,7 +70,9 @@ const TaskForm = (props: UsersProps ) => {
       .then(async (res) => {
         setloading(false);
         toast.success('Task Added!')
-        await router.push('/');
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       }, (err) => {
         toast.error('Error!')
         setloading(false);
@@ -131,7 +133,7 @@ const TaskForm = (props: UsersProps ) => {
               id="description"
               rows={7}
               onChange={(e) => handleUpdate('description', e.target.value)}
-              className='new-task-description'
+              className='new-task-description task-input'
             ></textarea>
           </div>
 
@@ -166,22 +168,35 @@ const TaskForm = (props: UsersProps ) => {
         </>
       )}
 
-      <div className='flex justify-end gap-[6px]'>
-        <Button
-          onClick={handlePrevNext}
-          className={`task-button ${steps < 1 ? 'active-btn': 'inactive-btn'}`}
-        >
-          {steps < 1 ? 'Next':'Back'}
-        </Button>
+      <div className='flex justify-between items-center'>
+        <div>
+          {steps < 1 &&
+            <Button
+              onClick={() => { router.back()}}
+              className="task-button inactive-btn"
+            >
+              Go Back
+            </Button>
+          }
+        </div>
 
-        <Button
-          onClick={handleComplete}
-          className={`task-button ${steps < 1 ? 'inactive-btn': 'active-btn'}`}
-          disabled={steps < 1}
-          isSubmitting={loading}
-        >
-          Finish
-        </Button>
+        <div className='flex items-center gap-2'>
+          <Button
+            onClick={handlePrevNext}
+            className={`task-button ${steps < 1 ? 'active-btn': 'inactive-btn'}`}
+          >
+            {steps < 1 ? 'Next':'Back'}
+          </Button>
+
+          <Button
+            onClick={handleComplete}
+            className={`task-button ${steps < 1 ? 'inactive-btn': 'active-btn'}`}
+            disabled={steps < 1}
+            isSubmitting={loading}
+          >
+            Finish
+          </Button>
+        </div>
       </div>
 
       <Toaster />

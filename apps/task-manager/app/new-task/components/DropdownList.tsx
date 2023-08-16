@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Listbox } from '@headlessui/react'
 import { User } from '@tasks-management/shared-types'
 import { DownArrow } from '@tasks-management/icons';
@@ -19,6 +19,10 @@ const DropdownList = (props: DropdownListProp ) => {
     setSelectedPerson(user)
     handleSelected(type, user)
   }
+
+  useEffect(() => {
+    handleSelected(type, list[0])
+  }, [])
 
   return (
     <Listbox as="div" className="relative" value={selectedPerson} onChange={handleListChange}>

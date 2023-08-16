@@ -9,9 +9,10 @@ interface TaskListProps {
 
 const TaskList = (props: TaskListProps) => {
   const { list } = props;
+  console.log('Task:', list);
 
   return (
-    <div className='w-full grid grid-cols-1 gap-4'>
+    <div className='w-full grid grid-cols-1 gap-4 pb-10 md:pb-20'>
       {list.length > 0 ?
         list.map((el) => (
           <TaskItem key={el.id} task={el} />

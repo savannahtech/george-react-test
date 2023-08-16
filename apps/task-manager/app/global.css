@@ -20,16 +20,16 @@
   @apply border-b-2 border-black;
 }
 .task-input, .task-date {
-  @apply outline-none bg-transparent;
+  @apply outline-none bg-transparent rounded-sm focus:border-b focus:border-indigo-300 focus:border-solid;
 }
 .task-button {
-  @apply w-[100px] h-8 px-3 py-2.5  rounded-md justify-center items-center gap-2 inline-flex
+  @apply w-[100px] h-8 px-3 py-2.5 shadow-sm hover:shadow-md rounded-md justify-center items-center gap-2 inline-flex
 }
 .dropdown-btn-content {
   @apply text-slate-600 text-[14px] font-medium leading-tight;
 }
 .dropdown-button {
-  @apply relative min-w-[6rem] cursor-pointer rounded-lg py-2 px-3 text-left hover:shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm
+  @apply relative min-w-[6rem] cursor-pointer rounded-lg py-2 px-3 text-left shadow-md hover:shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm
 }
 .dropdown-list {
   @apply absolute mt-1 max-h-60 w-40 overflow-auto rounded-lg bg-white text-base shadow-lg focus:outline-none sm:text-sm
