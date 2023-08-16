@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { Tab } from '@headlessui/react'
@@ -20,23 +20,23 @@ const TaskForm = async () => {
     description: ''
   })
 
-  const handlePrevNext = () => {
+  const handlePrevNext = useCallback(() => {
     console.log('Handle Next:')
     if (steps < 1) setSteps((prev) => prev + 1);
-    else if (steps >= 1) setSteps((prev) => prev - 1);
-  }
+    else setSteps((prev) => prev - 1);
+  }, [steps])
 
-  const handleComplete = async () => {
+  const handleComplete = useCallback(async () => {
     // e.preventDefault();
 
     try {
       console.log('Data:', data);
-      await fetch(`/api/tasks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      await router.push('/');
+      // await fetch(`/api/tasks`, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // })
+      // await router.push('/');
     } catch (error) {
       console.error(error)
     }
@@ -46,7 +46,7 @@ const TaskForm = async () => {
       setloading(false);
       router.push('/');
     }, 2000);
-  }
+  }, [data, router])
 
   const handleUpdate = (type: string, value: string) => {
     setdata((prev) => {
@@ -54,9 +54,10 @@ const TaskForm = async () => {
     })
   }
 
+  console.log("What's happening here..");
+
   return (
     <div
-      // onSubmit={handleComplete}
       className='grid grid-cols-1 gap-5 bg-[#F7F9FC] p-6 rounded-lg pb-12 mb-16'
     >
       <div className="w-full h-16 justify-start items-center gap-6 inline-flex">
@@ -68,13 +69,13 @@ const TaskForm = async () => {
           <input
             autoFocus
             className='task-title task-input border-none'
-            onChange={(e) => handleUpdate('title', e.target.value)}
+            // onChange={(e) => handleUpdate('title', e.target.value)}
             placeholder='Task Title'
           />
           <input
             className="task-date"
             type="datetime-local"
-            onChange={(e) => handleUpdate('created_at', e.target.value)}
+            // onChange={(e) => handleUpdate('created_at', e.target.value)}
           />
         </div>
 
@@ -87,18 +88,16 @@ const TaskForm = async () => {
       <hr className="border-gray-200" />
 
       {steps > 0 && (
-        <div className="flex justify-start items-start gap-8">
-          <div className="grow shrink basis-0 p-4 flex-col justify-start items-start gap-1.5 inline-flex">
-            <h2 className="text-gray-400 text-xs font-medium leading-normal">Desctiption</h2>
+        <div className="grow shrink basis-0 p-4 flex-col justify-start items-start gap-1.5 inline-flex">
+          <h2 className="text-gray-400 text-xs font-medium leading-normal">Desctiption</h2>
 
-            <textarea
-              name="description"
-              id="description"
-              rows={7}
-              onChange={(e) => handleUpdate('description', e.target.value)}
-              className='new-task-description'
-            ></textarea>
-          </div>
+          <textarea
+            name="description"
+            id="description"
+            rows={7}
+            // onChange={(e) => handleUpdate('description', e.target.value)}
+            className='new-task-description'
+          ></textarea>
         </div>
       )}
 
@@ -117,7 +116,7 @@ const TaskForm = async () => {
             </Tab.Panels>
           </Tab.Group>
 
-          <Link href="/">
+          <Link href="/" as="/">
             <div className="px-6 pb-0 flex justify-start items-center gap-1.5">
               <Plus />
               <div className="text-slate-600 text-base font-medium leading-[18px]">Link to other tasks</div>
@@ -129,13 +128,13 @@ const TaskForm = async () => {
       <div className='flex justify-end gap-[6px]'>
         <Button
           onClick={handlePrevNext}
-          className={`task-button ${steps < 1 ? 'bg-[#0F52BA] text-white': 'text-[#475467] border border-gray-200 bg-slate-100'}`}
+          className={`task-button ${steps < 1 ? 'active-btn': 'inactive-btn'}`}
         >
           {steps < 1 ? 'Next':'Back'}
         </Button>
         <Button
           onClick={handleComplete}
-          className={`task-button ${steps < 1 ? 'text-[#475467] border border-gray-200 bg-slate-100': 'bg-[#0F52BA] text-white'}`}
+          className={`task-button ${steps < 1 ? 'inactive-btn': 'active-btn'}`}
           disabled={steps < 1}
           isSubmitting={loading}
         >

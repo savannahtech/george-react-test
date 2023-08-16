@@ -1,15 +1,16 @@
 export * from './lib/shared-types';
-
-export interface Task {
-  id: number;
-	title: string;
-	assignee: string;
-	avatar: string;
-  created_at: Date;
-  status?: 'Open' | 'In Progress' | 'Done';
-}
-
 export interface Assignee {
-  id: number;
-  name: string
-}
+  name: string | null;
+  email: string | null;
+};
+
+export interface TaskProps {
+  id: string;
+  userId: string;
+  title: string;
+  avatar: string;
+  status: string;
+  created_at: Date,
+  user: Assignee
+};
+

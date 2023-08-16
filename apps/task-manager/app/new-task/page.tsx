@@ -1,9 +1,8 @@
+import React from 'react'
 import TaskForm from "./components/TaskForm";
 
-const NewTask: React.FC = () => {
+export default async function NewTask() {
   return (
     <TaskForm />
   );
 }
-
-export default NewTask;

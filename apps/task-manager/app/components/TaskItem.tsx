@@ -1,11 +1,11 @@
 import React from 'react'
-import type { Task } from "@tasks-management/shared-types";
 import Link from 'next/link';
+import type { TaskProps } from "@tasks-management/shared-types";
 import { TaskIcon } from '@tasks-management/icons';
 
-const TaskItem = ({ task }: { task: Task }) => {
+const TaskItem = ({ task }: { task: TaskProps }) => {
   return (
-    <Link href="/task">
+    <Link href="/task" as="/task">
       <div className="w-full h-[120px] p-8 bg-white rounded-[10px] hover:shadow-lg border border-slate-100 flex justify-between items-center gap-8 cursor-pointer">
         <div className="justify-start items-center gap-6 flex">
           <div className="w-16 h-16 bg-[#0F52BA] rounded-[10px] border border-indigo-300 justify-center items-center gap-6 flex">
@@ -15,7 +15,7 @@ const TaskItem = ({ task }: { task: Task }) => {
           <div className="flex-col justify-start items-start gap-2 inline-flex">
             <h2 className="task-title">{task.title}</h2>
             <div className="font-medium self-stretch justify-start items-center gap-1 inline-flex leading-normal text-xs text-gray-400">
-              <div className="font-semibold">{task.assignee}</div>
+              <div className="font-semibold">{task.user.name}</div>
               <span>·</span>
               <div>Creation Date</div>
               <div className="text-gray-500">{new Date(task.created_at)?.toDateString()}</div>

@@ -12,7 +12,7 @@ const Task: React.FC = () => {
       <hr className="border-gray-200" />
       <TaskInfo />
 
-      <Link href="/">
+      <Link href="/" as="/">
         <div className="px-4 flex justify-start items-center gap-1.5">
           <Plus />
           <div className="text-slate-600 text-base font-medium leading-[18px]">Link to other tasks</div>

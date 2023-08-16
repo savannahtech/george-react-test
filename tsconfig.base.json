@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@tasks-manager": ["apps/task-manager"],
       "@tasks-management/icons": ["libs/icons/src/index.ts"],
       "@tasks-management/shared-types": ["libs/shared-types/src/index.ts"],
       "@tasks-management/shared-ui": ["libs/shared-ui/src/index.ts"],

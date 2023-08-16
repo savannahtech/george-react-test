@@ -40,6 +40,12 @@
 .new-task-description {
   @apply w-full p-4 bg-slate-100 rounded-[10px] text-slate-600 text-[13px] font-medium leading-normal outline-none;
 }
+.active-btn {
+  @apply bg-[#0F52BA] text-white;
+}
+.inactive-btn {
+  @apply text-[#475467] border border-gray-200 bg-slate-100;
+}
 @keyframes spin {
   100% {
     transform: rotate(1turn);
