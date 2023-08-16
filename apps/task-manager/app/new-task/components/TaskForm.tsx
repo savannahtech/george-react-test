@@ -47,12 +47,12 @@ const TaskForm = (props: UsersProps ) => {
   const handleComplete = async () => {
     try {
       const payload: any =  Object.assign({}, data);
+      console.log('Payload before:', payload);
 
       payload.avatar = '';
-      payload.createdAt = payload.created_at;
       payload.user = payload.assignee;
-      payload.status = payload.status.name;
       payload.userId = payload.assignee.id;
+      payload.status = payload.status.name;
       payload.description = `${payload.description}`
 
       delete payload.created_at;
