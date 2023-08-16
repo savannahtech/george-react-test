@@ -13,8 +13,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Task" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "assignee" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,6 +26,3 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE INDEX "User_email_idx" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Task_assignee_key" ON "Task"("assignee");
