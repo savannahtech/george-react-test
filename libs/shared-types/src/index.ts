@@ -4,6 +4,16 @@ export interface Assignee {
   email: string | null;
 };
 
+export interface User {
+  id: string;
+  name: string | null | undefined;
+  email: string | null | undefined;
+  emailVerified: Date | null;
+  image: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface TaskProps {
   id: string;
   userId: string;
@@ -13,4 +23,3 @@ export interface TaskProps {
   created_at: Date,
   user: Assignee
 };
-

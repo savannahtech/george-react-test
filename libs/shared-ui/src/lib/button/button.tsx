@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import { SpinnerIcon } from '@tasks-management/icons';
+// import { SpinnerIcon } from '@tasks-management/icons';
 import { helpers } from '@tasks-management/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

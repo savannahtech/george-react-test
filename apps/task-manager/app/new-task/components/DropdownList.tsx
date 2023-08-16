@@ -2,18 +2,26 @@
 
 import React, { useState } from 'react'
 import { Listbox } from '@headlessui/react'
-import { Assignee } from '@tasks-management/shared-types'
+import { User } from '@tasks-management/shared-types'
 import { DownArrow } from '@tasks-management/icons';
 
 interface DropdownListProp {
-  list: Assignee[];
+  list: User[];
+  type: string;
+  handleSelected: (type: string, user: User) => void;
 }
 
-const DropdownList = ({ list }: DropdownListProp ) => {
+const DropdownList = (props: DropdownListProp ) => {
+  const { list, type, handleSelected } = props;
   const [selectedPerson, setSelectedPerson] = useState(list[0])
 
+  const handleListChange = (user: User) => {
+    setSelectedPerson(user)
+    handleSelected(type, user)
+  }
+
   return (
-    <Listbox as="div" className="relative" value={selectedPerson} onChange={setSelectedPerson}>
+    <Listbox as="div" className="relative" value={selectedPerson} onChange={handleListChange}>
       <Listbox.Button as="div" className="dropdown-button">
         <div className="flex justify-start items-start">
           <div className="flex justify-center items-center gap-2">
@@ -22,6 +30,7 @@ const DropdownList = ({ list }: DropdownListProp ) => {
           </div>
         </div>
       </Listbox.Button>
+
       <Listbox.Options as="ul" className="dropdown-list">
         {list.map((person) => (
           <Listbox.Option

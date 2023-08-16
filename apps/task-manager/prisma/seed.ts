@@ -1,19 +1,24 @@
 import { PrismaClient } from "@prisma/client";
+import { userDump } from './data/users';
 
 const prisma = new PrismaClient();
 
-async function main() {
-  await prisma.user.upsert({
-    where: { email: "admin@admin.com" },
-    update: {},
-    create: {
-      name: "Rick",
-      email: "rick@email.com",
-    },
-  });
+async function runSeeders() {
+  await Promise.all(
+    userDump.map(async (user) =>
+      prisma.user.upsert({
+        where : { email: user.email },
+        update: {},
+        create: {
+          name: user.name,
+          email: user.email
+        },
+      })
+    )
+  );
 }
 
-main()
+runSeeders()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {
     console.error(e);

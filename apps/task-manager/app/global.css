@@ -26,10 +26,10 @@
   @apply w-[100px] h-8 px-3 py-2.5  rounded-md justify-center items-center gap-2 inline-flex
 }
 .dropdown-btn-content {
-  @apply text-slate-600 text-[13px] font-medium leading-tight;
+  @apply text-slate-600 text-[14px] font-medium leading-tight;
 }
 .dropdown-button {
-  @apply relative w-24 cursor-pointer rounded-lg py-2 px-3 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm
+  @apply relative min-w-[6rem] cursor-pointer rounded-lg py-2 px-3 text-left hover:shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm
 }
 .dropdown-list {
   @apply absolute mt-1 max-h-60 w-40 overflow-auto rounded-lg bg-white text-base shadow-lg focus:outline-none sm:text-sm
