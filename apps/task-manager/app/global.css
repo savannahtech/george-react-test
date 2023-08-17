@@ -62,3 +62,29 @@
     transform: rotate(1turn);
   }
 }
+
+
+/* Utilities */
+.fixed {
+  position: fixed;
+}
+.inset-0 {
+  inset: 0px;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.z-1000 {
+  z-index: 1000;
+}
+.z-1009 {
+  z-index: 1009;
+}
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.301);
+}
+.backdrop-blur-sm {
+	backdrop-filter: blur(4px);
+}
+
+

@@ -11,7 +11,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 // export default async function Id (props: TaskProp) {
   const { id } = params;
   const task = await getTask(id);
-  console.log('Task:', task);
 
   return (
     <div className="grid grid-cols-1 gap-5 bg-[#F7F9FC] p-6 pb-12 mb-16">

@@ -67,11 +67,12 @@ const TaskForm = (props: UsersProps ) => {
 
       const response = req.json();
       response
-      .then(async (res) => {
+      .then(async(res) => {
         setloading(false);
         toast.success('Task Added!')
         setTimeout(() => {
-          router.push('/');
+          router.refresh()
+          router.push('/')
         }, 2000);
       }, (err) => {
         toast.error('Error!')

@@ -41,10 +41,10 @@ const Modal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={`fixed inset-0 z-[1000] bg-black backdrop-blur-sm ${opacity}`} aria-hidden="true"></div>
+          <div className={`fixed inset-0 z-1000 bg-black backdrop-blur-sm ${opacity}`} aria-hidden="true"></div>
         </Transition.Child>
 
-        <div className={`fixed inset-0 z-[1009] py-5 overflow-y-auto ${centered ? 'flex items-center justify-center' : ''}`}>
+        <div className={`fixed inset-0 z-1009 py-5 overflow-y-auto ${centered ? 'flex items-center justify-center' : ''}`}>
           <Transition.Child
             as={Fragment}
             enter="transition ease-out duration-700 transform-gpu"
