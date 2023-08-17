@@ -14,16 +14,16 @@ interface ModalProps {
   opacity?: string;
 }
 
-const Modal = ({
+export const Modal = ({
   autoClose = true,
   children,
   isOpen,
   setIsOpen,
   title,
-  centered=true,
-  style='w-full sm:w-1/2 md:w-64',
-  opacity='bg-opacity-25'
-} : ModalProps) => {
+  centered = true,
+  style = 'w-full sm:w-1/2 md:w-64',
+  opacity = 'bg-opacity-25'
+}: ModalProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog

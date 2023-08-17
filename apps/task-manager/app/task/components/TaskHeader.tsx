@@ -6,11 +6,8 @@ import { toast, Toaster } from 'react-hot-toast';
 
 import { AddIcon } from '@tasks-management/icons';
 import { TaskProps } from '@tasks-management/shared-types';
-import { Button } from '@tasks-management/shared-ui';
+import { Button, Modal } from '@tasks-management/shared-ui';
 import Confirm from './Confirm';
-
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import Modal from 'libs/shared-ui/src/lib/modal/modal';
 
 const TaskHeader = ({ task }: { task: TaskProps }) => {
   const router = useRouter();
