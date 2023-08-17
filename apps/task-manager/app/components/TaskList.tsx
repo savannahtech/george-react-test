@@ -17,7 +17,7 @@ const TaskList = (props: TaskListProps) => {
         list.map((el) => (
           <TaskItem key={el.id} task={el} />
         ))
-      :
+        :
         <div className='min-h-[10rem] flex items-center justify-center border-t border-gray-200'>
           <span className='text-gray-500'>No Tasks Available</span>
         </div>

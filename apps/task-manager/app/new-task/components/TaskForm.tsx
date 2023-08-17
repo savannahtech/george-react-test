@@ -45,7 +45,7 @@ const statuses: User[] = [
   },
 ];
 
-const TaskForm = (props: UsersProps ) => {
+const TaskForm = (props: UsersProps) => {
   const { users } = props;
 
   const router = useRouter();
@@ -61,7 +61,7 @@ const TaskForm = (props: UsersProps ) => {
 
   const handleComplete = async () => {
     try {
-      const payload: any =  Object.assign({}, data);
+      const payload: any = Object.assign({}, data);
       console.log('Payload before:', payload);
 
       payload.avatar = '';
@@ -80,19 +80,21 @@ const TaskForm = (props: UsersProps ) => {
         body: JSON.stringify(payload)
       })
 
-      const response = req.json();
-      response
-      .then(async(res) => {
-        setloading(false);
-        toast.success('Task Added!')
-        setTimeout(() => {
-          router.refresh()
-          router.push('/')
-        }, 2000);
-      }, (err) => {
-        toast.error('Error!')
-        setloading(false);
-      })
+      console.log('Post request:', req);
+
+      // const response = req.json();
+      // response
+      // .then((res) => {
+      //   setloading(false);
+      //   toast.success('Task Added!')
+      //   setTimeout(() => {
+      //     router.refresh()
+      //     router.push('/')
+      //   }, 2000);
+      // }, (err) => {
+      //   toast.error('Error!')
+      //   setloading(false);
+      // })
     } catch (error) {
       setloading(false);
     }
@@ -100,13 +102,13 @@ const TaskForm = (props: UsersProps ) => {
 
   const handleUpdate = (type: string, value: string) => {
     setdata((prev: any) => {
-      return {...prev, [type]: value}
+      return { ...prev, [type]: value }
     })
   }
 
   const handleSelected = (type: string, user: User) => {
     setdata((prev: any) => {
-      return {...prev, [type]: user}
+      return { ...prev, [type]: user }
     })
   }
 
@@ -188,7 +190,7 @@ const TaskForm = (props: UsersProps ) => {
         <div>
           {steps < 1 &&
             <Button
-              onClick={() => { router.back()}}
+              onClick={() => { router.back() }}
               className="task-button inactive-btn"
             >
               Go Back
@@ -199,14 +201,14 @@ const TaskForm = (props: UsersProps ) => {
         <div className='flex items-center gap-2'>
           <Button
             onClick={handlePrevNext}
-            className={`task-button ${steps < 1 ? 'active-btn': 'inactive-btn'}`}
+            className={`task-button ${steps < 1 ? 'active-btn' : 'inactive-btn'}`}
           >
-            {steps < 1 ? 'Next':'Back'}
+            {steps < 1 ? 'Next' : 'Back'}
           </Button>
 
           <Button
             onClick={handleComplete}
-            className={`task-button ${steps < 1 ? 'inactive-btn': 'active-btn'}`}
+            className={`task-button ${steps < 1 ? 'inactive-btn' : 'active-btn'}`}
             disabled={steps < 1}
             isSubmitting={loading}
           >
