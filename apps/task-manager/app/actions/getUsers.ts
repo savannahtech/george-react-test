@@ -4,17 +4,13 @@ export default async function getUsers() {
   try {
     const users = await prisma.user.findMany({
       orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        task: true
+        createdAt: 'desc'
       }
     });
 
-    console.log('Full Users:', users);
+    // console.log('Full Users:', users);
 
     return users;
-
   } catch (error: any) {
     throw new Error(error);
   }

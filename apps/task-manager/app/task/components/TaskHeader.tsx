@@ -1,3 +1,4 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 'use client';
 
 import React, { useState } from 'react'
@@ -5,16 +6,16 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { AddIcon } from '@tasks-management/icons';
-import { Task } from '@tasks-management/shared-types';
+import { TaskProps } from '@tasks-management/shared-types';
 import { Button } from '@tasks-management/shared-ui';
-import Modal from 'libs/shared-ui/src/lib/modal/modal';
 import Confirm from './Confirm';
+import Modal from 'libs/shared-ui/src/lib/modal/modal';
 
-const TaskHeader = ({ task }: { task: Task | null }) => {
+const TaskHeader = ({ task }: { task: TaskProps }) => {
   const router = useRouter();
   const [loading, setloading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const taskDate = task?.created_at as Date;
+  const taskDate = task?.createdAt as Date;
 
   const handleAction = (type: string) => {
     switch (type) {
@@ -44,20 +45,20 @@ const TaskHeader = ({ task }: { task: Task | null }) => {
       const response = req.json()
 
       response
-      .then((res) => {
-        setloading(false);
-        router.push('/');
-      }, (err) => {
-        console.error('Error:', err);
-        // toast.error('Error removing task. Please try again!');
-        setloading(false);
-      })
-      .finally(() => {
-        toast.success('Task Removed!');
-        setTimeout(() => {
+        .then((res) => {
+          setloading(false);
           router.push('/');
-        }, 1000);
-      })
+        }, (err) => {
+          console.error('Error:', err);
+          // toast.error('Error removing task. Please try again!');
+          setloading(false);
+        })
+        .finally(() => {
+          toast.success('Task Removed!');
+          setTimeout(() => {
+            router.push('/');
+          }, 1000);
+        })
     } catch (error) {
       setloading(false);
     }

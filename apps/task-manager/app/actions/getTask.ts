@@ -1,8 +1,6 @@
 import prisma from '../lib/prismadb';
 
 export default async function getTask(id: string) {
-  console.log('Page Id:', id);
-
   try {
     const task = await prisma.task.findUnique({
       where: { id },
@@ -15,13 +13,14 @@ export default async function getTask(id: string) {
       id: task?.id,
       userId: task?.userId,
       title: task?.title,
-      description: task?.description,
-      avatar: task?.avatar,
+      description: task?.description as string | undefined,
+      avatar: task?.avatar as string | undefined,
       status: task?.status,
-      created_at: task?.createdAt,
+      createdAt: task?.createdAt,
+      updatedAt: task?.updatedAt,
       user: {
-        name   : task?.user.name,
-        email  : task?.user.email,
+        name: task?.user.name as string | undefined,
+        email: task?.user.email as string | undefined,
       }
     }
   } catch (error) {

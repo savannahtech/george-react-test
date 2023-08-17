@@ -8,19 +8,21 @@ export default async function getTasks() {
       },
       include: {
         user: true
-      },
+      }
     });
 
     const newTasks = tasks.map((task) => ({
-      id          : task.id,
-      userId      : task.userId,
-      title       : task.title,
-      avatar      : task.avatar,
-      status      : task.status,
-      created_at  : task.createdAt,
+      id: task.id,
+      userId: task.userId,
+      title: task.title,
+      avatar: task.avatar,
+      status: task.status,
+      description: task.description,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
       user: {
-        name      : task.user.name,
-        email     : task.user.email,
+        name: task.user.name,
+        email: task.user.email,
       }
     }));
 

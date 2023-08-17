@@ -9,10 +9,8 @@ export async function POST(request: Request) {
       data: json
     });
 
-
     // Connect task to existing user!
     const id = json.userId;
-    console.log('Task payload:', newTask);
 
     if (id && newTask.id) {
       await prisma.user.update({
@@ -28,8 +26,8 @@ export async function POST(request: Request) {
     }
 
     return new NextResponse(JSON.stringify(newTask), {
-     status: 201,
-     headers: { "Content-Type": "application/json" },
+      status: 201,
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
     if (error.code === "P2002") {

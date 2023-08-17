@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { Tab } from '@headlessui/react'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 import { AddIcon, Plus } from '@tasks-management/icons'
 import { Button } from '@tasks-management/shared-ui'
@@ -20,7 +20,7 @@ const statuses: User[] = [
     id: "1",
     name: "Open",
     email: '',
-    emailVerified: new Date(),
+    emailVerified: false,
     image: '',
     createdAt: new Date(),
     updatedAt: new Date()
@@ -29,7 +29,7 @@ const statuses: User[] = [
     id: "2",
     name: "In Progress",
     email: '',
-    emailVerified: new Date(),
+    emailVerified: false,
     image: '',
     createdAt: new Date(),
     updatedAt: new Date()
@@ -38,7 +38,7 @@ const statuses: User[] = [
     id: "3",
     name: "Done",
     email: '',
-    emailVerified: new Date(),
+    emailVerified: false,
     image: '',
     createdAt: new Date(),
     updatedAt: new Date()
@@ -54,7 +54,6 @@ const TaskForm = (props: UsersProps) => {
   const [data, setdata] = useState()
 
   const handlePrevNext = () => {
-    console.log('Handle Next:')
     if (steps < 1) setSteps((prev) => prev + 1);
     else setSteps((prev) => prev - 1);
   }
@@ -62,7 +61,6 @@ const TaskForm = (props: UsersProps) => {
   const handleComplete = async () => {
     try {
       const payload: any = Object.assign({}, data);
-      console.log('Payload before:', payload);
 
       payload.avatar = '';
       payload.userId = payload.assignee.id;
@@ -80,23 +78,17 @@ const TaskForm = (props: UsersProps) => {
         body: JSON.stringify(payload)
       })
 
-      console.log('Post request:', req);
-
-      // const response = req.json();
-      // response
-      // .then((res) => {
-      //   setloading(false);
-      //   toast.success('Task Added!')
-      //   setTimeout(() => {
-      //     router.refresh()
-      //     router.push('/')
-      //   }, 2000);
-      // }, (err) => {
-      //   toast.error('Error!')
-      //   setloading(false);
-      // })
+      if (req) {
+        console.log('Resolved request:', req);
+        setloading(false);
+        toast.success('Task Added Successfully!')
+        router.refresh();
+        await router.push('/');
+      }
     } catch (error) {
       setloading(false);
+      console.error('Error occured:', error);
+      toast.error(`Error occurred creating request`)
     }
   }
 
@@ -144,7 +136,7 @@ const TaskForm = (props: UsersProps) => {
       {steps > 0 && (
         <>
           <div className="grow shrink basis-0 p-4 flex-col justify-start items-start gap-1.5 inline-flex">
-            <h2 className="text-gray-400 text-xs font-medium leading-normal">Desctiption</h2>
+            <h2 className="text-gray-400 text-xs font-medium leading-normal">Description</h2>
 
             <textarea
               name="description"
@@ -216,10 +208,8 @@ const TaskForm = (props: UsersProps) => {
           </Button>
         </div>
       </div>
-
-      <Toaster />
     </div>
   )
 }
 
-export default TaskForm
+export default TaskForm;

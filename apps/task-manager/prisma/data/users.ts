@@ -1,22 +1,37 @@
 export const userDump = [
   {
     name: 'Unassigned',
-    email: ""
+    email: "",
+    emailVerified: false,
+    image: "",
+    task: []
   },
   {
     name: 'Rick',
-    email: "rick@email.com"
+    email: "rick@email.com",
+    emailVerified: false,
+    image: "",
+    task: []
   },
   {
     name: 'Jerry',
-    email: "jerry@email.com"
+    email: "jerry@email.com",
+    emailVerified: false,
+    image: "",
+    task: []
   },
   {
     name: 'Beth',
-    email: "beth@email.com"
+    email: "beth@email.com",
+    emailVerified: false,
+    image: "",
+    task: []
   },
   {
     name: 'Summer',
-    email: "summer@email.com"
+    email: "summer@email.com",
+    emailVerified: false,
+    image: "",
+    task: []
   }
 ];

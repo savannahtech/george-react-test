@@ -23,7 +23,6 @@ export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log('Params:', params);
   const id = params.id;
   const json = await request.json();
 

@@ -1,9 +1,9 @@
 import React from 'react'
-import type { TaskProps } from "@tasks-management/shared-types";
+import type { Task } from "@tasks-management/shared-types";
 import TaskItem from './TaskItem';
 
 interface TaskListProps {
-  list: TaskProps[],
+  list: Task[],
   pagination: number
 }
 

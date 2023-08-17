@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { Toaster } from 'react-hot-toast';
+
 import TaskList from './components/TaskList';
 import { Button } from "@tasks-management/shared-ui";
 import getTasks from './actions/getTasks';
@@ -23,6 +25,7 @@ export default async function Index() {
       </div>
 
       <TaskList list={tasks.tasks} pagination={tasks.totalCount} />
+      <Toaster />
     </div>
   );
 }
