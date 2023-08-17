@@ -11,7 +11,16 @@ const nextConfig = {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
     svgr: false,
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/task',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 const plugins = [

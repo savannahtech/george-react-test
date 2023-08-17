@@ -5,7 +5,7 @@ import { TaskIcon } from '@tasks-management/icons';
 
 const TaskItem = ({ task }: { task: TaskProps }) => {
   return (
-    <Link href="/task" as="/task">
+    <Link href={`/task/${task.id}`}>
       <div className="w-full h-[120px] p-8 bg-white rounded-[10px] hover:shadow-lg border border-slate-100 flex justify-between items-center gap-8 cursor-pointer">
         <div className="justify-start items-center gap-6 flex">
           <div className="w-16 h-16 bg-[#0F52BA] rounded-[10px] border border-indigo-300 justify-center items-center gap-6 flex">

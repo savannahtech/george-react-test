@@ -23,3 +23,13 @@ export interface TaskProps {
   created_at: Date,
   user: Assignee
 };
+
+export interface Task {
+  id?: string;
+  userId?: string;
+  title?: string;
+  description?: string;
+  avatar?: string;
+  status?: string;
+  created_at: Date | undefined;
+}

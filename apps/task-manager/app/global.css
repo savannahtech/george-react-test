@@ -6,7 +6,18 @@
 .animate-spin {
   animation: spin 1s linear infinite;
 }
-
+.task-info-status {
+  @apply text-gray-400 text-xs font-medium leading-[18px];
+}
+.task-info-pill {
+  @apply px-3 py-0.5 bg-[#EEF2F8] rounded-2xl justify-center items-center inline-flex;
+}
+.task-info-content {
+  @apply text-slate-600 text-[13px] font-medium leading-tight capitalize;
+}
+.task-info-description {
+  @apply w-full text-slate-600 text-[13px] font-medium leading-normal;
+}
 .task-title {
   @apply text-gray-900 text-sm font-semibold leading-[18px];
 }
@@ -17,7 +28,7 @@
   @apply w-24 text-slate-800 text-sm font-semibold leading-tight h-16;
 }
 .tab-header.active {
-  @apply border-b-2 border-black;
+  @apply border-b-2 border-black focus:outline-none;
 }
 .task-input, .task-date {
   @apply outline-none bg-transparent rounded-sm focus:border-b focus:border-indigo-300 focus:border-solid;
