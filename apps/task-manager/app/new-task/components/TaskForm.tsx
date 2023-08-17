@@ -15,18 +15,33 @@ interface UsersProps {
   users: User[]
 }
 
-const statuses: Array = [
+const statuses: User[] = [
   {
     id: "1",
-    name: "Open"
+    name: "Open",
+    email: '',
+    emailVerified: new Date(),
+    image: '',
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "2",
-    name: "In Progress"
+    name: "In Progress",
+    email: '',
+    emailVerified: new Date(),
+    image: '',
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "3",
-    name: "Done"
+    name: "Done",
+    email: '',
+    emailVerified: new Date(),
+    image: '',
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
 ];
 

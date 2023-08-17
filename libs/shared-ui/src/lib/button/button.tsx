@@ -5,6 +5,7 @@ import { helpers } from '@tasks-management/utils';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isSubmitting?: boolean;
   contentClassName?: string;
+  themeColor?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -15,6 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       isSubmitting = false,
       contentClassName,
+      themeColor = 'text-white',
       ...props
     },
     ref
@@ -45,7 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isSubmitting ?
           <svg
-            className="h-3 w-3 animate-spin text-white"
+            className={`h-3 w-3 animate-spin ${themeColor}`}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

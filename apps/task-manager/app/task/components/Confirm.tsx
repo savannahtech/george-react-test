@@ -46,6 +46,7 @@ const Confirm = (props: confirmProps) => {
             onClick={handleConfirm}
             type="button"
             isSubmitting={loading}
+            themeColor='text-blue-700'
           >
             {affirmative}
           </Button>
