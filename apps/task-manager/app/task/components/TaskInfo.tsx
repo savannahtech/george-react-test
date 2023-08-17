@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { RightArrow } from '@tasks-management/icons'
 import { Tab } from '@headlessui/react'
-import { taskList } from '../../api/tasks/tasks'
 import TaskItem from '../../components/TaskItem'
 import { Task, TaskProps } from '@tasks-management/shared-types';
 
@@ -11,7 +10,6 @@ const tabHeaders = [
   { id: 0, name: "Related tasks" },
   { id: 1, name: "Watchers" }
 ];
-
 
 const TaskInfo = ({ task }: { task: Task } ) => {
   const [current, setcurrent] = useState(0);
@@ -36,7 +34,7 @@ const TaskInfo = ({ task }: { task: Task } ) => {
         <div className="flex flex-col justify-start items-start gap-1.5 p-4">
           <div className="task-info-status">Assignee</div>
           <div className="task-info-pill">
-            <div className="task-info-content">{task.userId}</div>
+            <div className="task-info-content">{task?.user.name}</div>
           </div>
         </div>
       </div>

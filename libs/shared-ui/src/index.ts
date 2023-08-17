@@ -2,3 +2,4 @@
 
 export * from './lib/shared-ui';
 export * from './lib/button/button';
+export * from './lib/modal/modal';

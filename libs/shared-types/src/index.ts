@@ -1,7 +1,7 @@
 export * from './lib/shared-types';
 export interface Assignee {
-  name: string | null;
-  email: string | null;
+  name?: string | null;
+  email?: string | null;
 };
 
 export interface User {
@@ -32,4 +32,5 @@ export interface Task {
   avatar?: string;
   status?: string;
   created_at: Date | undefined;
+  user: Assignee
 }

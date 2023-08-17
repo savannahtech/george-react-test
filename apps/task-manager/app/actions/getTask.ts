@@ -5,10 +5,11 @@ export default async function getTask(id: string) {
 
   try {
     const task = await prisma.task.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        user: true
+      }
     });
-
-    console.log('Full task:', task);
 
     return {
       id: task?.id,
@@ -17,7 +18,11 @@ export default async function getTask(id: string) {
       description: task?.description,
       avatar: task?.avatar,
       status: task?.status,
-      created_at: task?.createdAt
+      created_at: task?.createdAt,
+      user: {
+        name   : task?.user.name,
+        email  : task?.user.email,
+      }
     }
   } catch (error) {
     console.error('Error:', error);
