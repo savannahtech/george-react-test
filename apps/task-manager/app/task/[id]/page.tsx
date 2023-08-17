@@ -1,14 +1,12 @@
 import React from 'react';
 import Link from "next/link";
-import { Toaster } from 'react-hot-toast';
 
 import TaskHeader from "../components/TaskHeader";
 import TaskInfo from "../components/TaskInfo";
 import { Plus } from "@tasks-management/icons";
 import getTask from '../../actions/getTask';
 
-
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Task({ params }: { params: { id: string } }) {
   const { id } = params;
   const task = await getTask(id);
 
@@ -26,8 +24,6 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="text-slate-600 text-base font-medium leading-[18px]">Link to other tasks</div>
         </div>
       </Link>
-
-      <Toaster />
     </div>
   );
 };

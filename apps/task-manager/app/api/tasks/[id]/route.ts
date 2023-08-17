@@ -44,11 +44,12 @@ export async function DELETE(
 ) {
   try {
     const id = params.id;
-    await prisma.task.delete({
+    const deleted_task = await prisma.task.delete({
       where: { id },
     });
 
-    return new NextResponse(null, { status: 204 });
+    // return new NextResponse(null, { status: 204 });
+    return NextResponse.json(deleted_task);
   } catch (error: any) {
     if (error.code === "P2025") {
       return new NextResponse("No task with ID found", { status: 404 });

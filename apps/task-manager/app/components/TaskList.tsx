@@ -1,4 +1,8 @@
+'use client';
+
 import React from 'react'
+import { Toaster } from 'react-hot-toast';
+
 import type { Task } from "@tasks-management/shared-types";
 import TaskItem from './TaskItem';
 
@@ -9,7 +13,6 @@ interface TaskListProps {
 
 const TaskList = (props: TaskListProps) => {
   const { list } = props;
-  console.log('Task:', list);
 
   return (
     <div className='w-full grid grid-cols-1 gap-4 pb-10 md:pb-20'>
@@ -22,6 +25,8 @@ const TaskList = (props: TaskListProps) => {
           <span className='text-gray-500'>No Tasks Available</span>
         </div>
       }
+
+      <Toaster />
     </div>
   )
 }

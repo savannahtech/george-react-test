@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { Tab } from '@headlessui/react'
-import toast from 'react-hot-toast';
+import { useForm } from "react-hook-form"
+import { toast, Toaster } from 'react-hot-toast';
 
 import { AddIcon, Plus } from '@tasks-management/icons'
 import { Button } from '@tasks-management/shared-ui'
@@ -46,168 +48,184 @@ const statuses: User[] = [
 ];
 
 const TaskForm = (props: UsersProps) => {
+  const { register, clearErrors, setValue, trigger, handleSubmit, formState: { errors } } = useForm();
   const { users } = props;
 
   const router = useRouter();
   const [steps, setSteps] = useState(0);
   const [loading, setloading] = useState(false);
-  const [data, setdata] = useState()
 
   const handlePrevNext = () => {
     if (steps < 1) setSteps((prev) => prev + 1);
     else setSteps((prev) => prev - 1);
   }
 
-  const handleComplete = async () => {
+  const handleComplete = async (data: any) => {
     try {
-      const payload: any = Object.assign({}, data);
+      if (steps < 1) return;
 
-      payload.avatar = '';
-      payload.userId = payload.assignee.id;
-      payload.status = payload.status.name;
-      payload.description = `${payload.description}`
+      const validationFields = ["title", "created_at"];
+      trigger(validationFields).then(async (res) => {
+        if (res) {
+          const payload: any = { ...data };
 
-      delete payload.created_at;
-      delete payload.assignee;
-      delete payload.user
+          payload.avatar = '';
+          payload.userId = payload?.assignee?.id;
+          payload.status = payload?.status?.name;
+          payload.description = `${payload.description}`
+          payload.createdAt = new Date(payload.created_at)
 
-      setloading(true);
-      const req = await fetch(`/api/tasks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+          delete payload.created_at;
+          delete payload.assignee;
+          delete payload.user
+
+          setloading(true);
+
+          const req = await fetch(`/api/tasks`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+
+          if (req) {
+            setloading(false);
+            toast.success('Task Added Successfully')
+            setTimeout(() => {
+              router.refresh();
+              router.replace('/');
+            }, 1000);
+          }
+        }
       })
-
-      if (req) {
-        console.log('Resolved request:', req);
-        setloading(false);
-        toast.success('Task Added Successfully!')
-        router.refresh();
-        await router.push('/');
-      }
     } catch (error) {
       setloading(false);
       console.error('Error occured:', error);
-      toast.error(`Error occurred creating request`)
+      toast.error(`Error occurred creating task. Please try again`)
     }
   }
 
-  const handleUpdate = (type: string, value: string) => {
-    setdata((prev: any) => {
-      return { ...prev, [type]: value }
-    })
-  }
-
   const handleSelected = (type: string, user: User) => {
-    setdata((prev: any) => {
-      return { ...prev, [type]: user }
-    })
+    setValue(type, user)
   }
 
   return (
-    <div className='grid grid-cols-1 gap-5 bg-[#F7F9FC] p-6 rounded-lg pb-12 mb-16'>
-      <div className="w-full h-16 justify-start items-center gap-6 inline-flex">
-        <div className="w-16 h-16 bg-[#0F52BA] rounded-[10px] border border-indigo-300 justify-center items-center gap-6 flex">
-          <AddIcon />
-        </div>
+    <div>
+      <form
+        className='grid grid-cols-1 gap-5 bg-[#F7F9FC] p-6 rounded-lg pb-12 mb-16'
+        onSubmit={handleSubmit(handleComplete)}
+      >
+        <div className="w-full justify-start items-start gap-6 inline-flex">
+          <div className="w-16 h-16 bg-[#0F52BA] rounded-[10px] border border-indigo-300 justify-center items-center gap-6 flex">
+            <AddIcon />
+          </div>
 
-        <div className="grow shrink basis-0 pt-[3px] flex-col justify-start items-start gap-1 inline-flex">
-          <input
-            autoFocus
-            className='task-title task-input border-none'
-            onChange={(e) => handleUpdate('title', e.target.value)}
-            placeholder='Task Title'
-          />
-          <input
-            className="task-date"
-            type="datetime-local"
-            onChange={(e) => handleUpdate('created_at', e.target.value)}
-          />
-        </div>
+          <div className="grow shrink basis-0 pt-[3px] flex-col justify-start items-start gap-2 inline-flex">
+            <div>
+              <input
+                autoFocus
+                className='min-w-[14rem] task-title task-input '
+                {...register('title', { required: true })}
+                onChange={() => clearErrors()}
+                placeholder='Task Title'
+              />
+              {errors.title && (<p className='form-error'>Title is required</p>)}
+            </div>
 
-        <div className="relative px-3 flex justify-start items-center gap-2">
-          <div className="text-gray-400 text-[13px] font-medium leading-tight">Assign to</div>
-          <DropdownList list={users} type="assignee" handleSelected={handleSelected} />
-        </div>
-      </div>
-
-      <hr className="border-gray-200" />
-
-      {steps > 0 && (
-        <>
-          <div className="grow shrink basis-0 p-4 flex-col justify-start items-start gap-1.5 inline-flex">
-            <h2 className="text-gray-400 text-xs font-medium leading-normal">Description</h2>
-
-            <textarea
-              name="description"
-              id="description"
-              rows={7}
-              onChange={(e) => handleUpdate('description', e.target.value)}
-              className='new-task-description task-input'
-            ></textarea>
+            <div>
+              <input
+                className="task-date min-w-[14rem]"
+                type="date"
+                {...register('created_at', { required: true })}
+                onChange={() => clearErrors()}
+              />
+              {errors.created_at && (<p className='form-error'>Due Date is required</p>)}
+            </div>
           </div>
 
           <div className="relative px-3 flex justify-start items-center gap-2">
-            <div className="text-gray-400 text-[13px] font-medium leading-tight">Status</div>
-            <DropdownList list={statuses} type="status" handleSelected={handleSelected} />
+            <div className="text-gray-400 text-[13px] font-medium leading-tight">Assign to</div>
+            <DropdownList list={users} type="assignee" handleSelected={handleSelected} />
+          </div>
+        </div>
+
+        <hr className="border-gray-200" />
+
+        {steps > 0 && (
+          <>
+            <div className="grow shrink basis-0 p-4 flex-col justify-start items-start gap-1.5 inline-flex">
+              <h2 className="text-gray-400 text-xs font-medium leading-normal">Description</h2>
+
+              <textarea
+                id="description"
+                rows={5}
+                className='new-task-description task-input'
+                {...register('description', { required: true })}
+              ></textarea>
+            </div>
+
+            <div className="relative px-3 flex justify-start items-center gap-2">
+              <div className="text-gray-400 text-[13px] font-medium leading-tight">Status</div>
+              <DropdownList list={statuses} type="status" handleSelected={handleSelected} />
+            </div>
+
+            <hr className="border-gray-200" />
+
+            <div className='grid grid-cols-1 gap-6'>
+              <Tab.Group as="div" className="p-6 pb-0">
+                <Tab.List as="div" className="px-5">
+                  <Tab className="tab-header active">
+                    Related tasks
+                  </Tab>
+                </Tab.List>
+                <Tab.Panels>
+                  <Tab.Panel as="div" className="grid grid-cols-1 gap-[16px]">
+                    <div></div>
+                  </Tab.Panel>
+                </Tab.Panels>
+              </Tab.Group>
+
+              <Link href="/" as="/">
+                <div className="px-6 pb-0 flex justify-start items-center gap-1.5">
+                  <Plus />
+                  <div className="text-slate-600 text-base font-medium leading-[18px]">Link to other tasks</div>
+                </div>
+              </Link>
+            </div>
+          </>
+        )}
+
+        <div className='flex justify-between items-center'>
+          <div>
+            {steps < 1 &&
+              <Button
+                onClick={() => { router.back() }}
+                className="task-button inactive-btn"
+              >
+                Go Back
+              </Button>
+            }
           </div>
 
-          <hr className="border-gray-200" />
-
-          <div className='grid grid-cols-1 gap-6'>
-            <Tab.Group as="div" className="p-6 pb-0">
-              <Tab.List as="div" className="px-5">
-                <Tab className="tab-header active">
-                  Related tasks
-                </Tab>
-              </Tab.List>
-              <Tab.Panels>
-                <Tab.Panel as="div" className="grid grid-cols-1 gap-[16px]">
-                  <div></div>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
-
-            <Link href="/" as="/">
-              <div className="px-6 pb-0 flex justify-start items-center gap-1.5">
-                <Plus />
-                <div className="text-slate-600 text-base font-medium leading-[18px]">Link to other tasks</div>
-              </div>
-            </Link>
-          </div>
-        </>
-      )}
-
-      <div className='flex justify-between items-center'>
-        <div>
-          {steps < 1 &&
+          <div className='flex items-center gap-2'>
             <Button
-              onClick={() => { router.back() }}
-              className="task-button inactive-btn"
+              onClick={handlePrevNext}
+              className={`task-button ${steps < 1 ? 'active-btn' : 'inactive-btn'}`}
             >
-              Go Back
+              {steps < 1 ? 'Next' : 'Back'}
             </Button>
-          }
-        </div>
 
-        <div className='flex items-center gap-2'>
-          <Button
-            onClick={handlePrevNext}
-            className={`task-button ${steps < 1 ? 'active-btn' : 'inactive-btn'}`}
-          >
-            {steps < 1 ? 'Next' : 'Back'}
-          </Button>
-
-          <Button
-            onClick={handleComplete}
-            className={`task-button ${steps < 1 ? 'inactive-btn' : 'active-btn'}`}
-            disabled={steps < 1}
-            isSubmitting={loading}
-          >
-            Finish
-          </Button>
+            <Button
+              className={`task-button ${steps < 1 ? 'inactive-btn' : 'active-btn'}`}
+              disabled={steps < 1}
+              isSubmitting={loading}
+            >
+              Finish
+            </Button>
+          </div>
         </div>
-      </div>
+      </form>
+
+      <Toaster />
     </div>
   )
 }

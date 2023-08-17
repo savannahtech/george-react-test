@@ -1,14 +1,15 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 'use client';
 
 import React, { useState } from 'react'
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { toast, Toaster } from 'react-hot-toast';
 
 import { AddIcon } from '@tasks-management/icons';
 import { TaskProps } from '@tasks-management/shared-types';
 import { Button } from '@tasks-management/shared-ui';
 import Confirm from './Confirm';
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import Modal from 'libs/shared-ui/src/lib/modal/modal';
 
 const TaskHeader = ({ task }: { task: TaskProps }) => {
@@ -35,32 +36,23 @@ const TaskHeader = ({ task }: { task: TaskProps }) => {
   const handleConfirm = async () => {
     try {
       setloading(true);
-      console.log('Task on header:', task);
 
       const req = await fetch(`/api/tasks/${task?.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
       })
 
-      const response = req.json()
-
-      response
-        .then((res) => {
-          setloading(false);
-          router.push('/');
-        }, (err) => {
-          console.error('Error:', err);
-          // toast.error('Error removing task. Please try again!');
-          setloading(false);
-        })
-        .finally(() => {
-          toast.success('Task Removed!');
-          setTimeout(() => {
-            router.push('/');
-          }, 1000);
-        })
+      if (req) {
+        setloading(false);
+        toast.success('Task Removed!')
+        setTimeout(() => {
+          router.refresh();
+          router.replace('/');
+        }, 1000);
+      }
     } catch (error) {
       setloading(false);
+      toast.error(`Error occurred removing task. Please try again`)
     }
   }
 
@@ -74,7 +66,7 @@ const TaskHeader = ({ task }: { task: TaskProps }) => {
 
           <div className="grow shrink basis-0 pt-[3px] flex-col justify-start items-start gap-1 inline-flex">
             <div className="task-title">{task?.title}</div>
-            <div className="task-date">{new Date(taskDate)?.toDateString()}</div>
+            <div className="task-date !border-none !p-0">{new Date(taskDate)?.toDateString()}</div>
           </div>
         </div>
 
@@ -113,6 +105,8 @@ const TaskHeader = ({ task }: { task: TaskProps }) => {
           </div>
         </Confirm>
       </Modal>
+
+      <Toaster />
     </section>
   )
 }

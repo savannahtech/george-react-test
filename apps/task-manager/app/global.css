@@ -30,26 +30,30 @@
 .tab-header.active {
   @apply border-b-2 border-black focus:outline-none;
 }
-.task-input, .task-date {
-  @apply outline-none bg-transparent rounded-sm focus:border-b focus:border-indigo-300 focus:border-solid;
+.task-input,
+.task-date {
+  @apply px-2 py-1 border border-gray-200 outline-none bg-transparent rounded-[5px] focus:border-b focus:border-indigo-300 focus:border-solid;
 }
 .task-button {
-  @apply w-[100px] h-8 px-3 py-2.5 shadow-sm hover:shadow-md rounded-md justify-center items-center gap-2 inline-flex
+  @apply w-[100px] h-8 px-3 py-2.5 shadow-sm hover:shadow-md rounded-md justify-center items-center gap-2 inline-flex;
+}
+.form-error {
+  @apply py-1 text-xs text-red-500;
 }
 .dropdown-btn-content {
   @apply text-slate-600 text-[14px] font-medium leading-tight;
 }
 .dropdown-button {
-  @apply relative min-w-[6rem] cursor-pointer rounded-lg py-2 px-3 text-left shadow-md hover:shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm
+  @apply relative min-w-[6rem] cursor-pointer rounded-lg py-2 px-3 text-left shadow-md hover:shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm;
 }
 .dropdown-list {
-  @apply absolute mt-1 max-h-60 w-40 overflow-auto rounded-lg bg-white text-base shadow-lg focus:outline-none sm:text-sm
+  @apply absolute mt-1 max-h-60 w-40 overflow-auto rounded-lg bg-white text-base shadow-lg focus:outline-none sm:text-sm;
 }
 .dropdown-option {
-  @apply relative cursor-default select-none p-2 hover:bg-[#DEE5F0] font-semibold text-[#475467]
+  @apply relative cursor-default select-none p-2 hover:bg-[#DEE5F0] font-semibold text-[#475467];
 }
 .new-task-description {
-  @apply w-full p-4 bg-slate-100 rounded-[10px] text-slate-600 text-[13px] font-medium leading-normal outline-none;
+  @apply w-full p-4 bg-slate-100 rounded-[10px] text-black text-sm font-medium leading-normal outline-none;
 }
 .active-btn {
   @apply bg-[#0F52BA] text-white;
@@ -62,7 +66,6 @@
     transform: rotate(1turn);
   }
 }
-
 
 /* Utilities */
 .fixed {
@@ -84,7 +87,5 @@
   background-color: rgba(0, 0, 0, 0.301);
 }
 .backdrop-blur-sm {
-	backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
-
-
