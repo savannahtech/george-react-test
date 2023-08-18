@@ -20,9 +20,10 @@ Viola! All guns blazing.
 
 1. Used `Next.js 13` for the frontend, `Nextjs API routes` for api endpoints and `Prisma ORM` for database interactions.
 2. Added a `shared-UI` library for components to be used accrosed the entire workspace
-3. Added a `shared-types` library for shared types to be used on both frontend and backend
-4. Added a `utils library` to provide basic utility functions accross the entire workspace
-5. Implemented `Infinite-scroll on frontend app`
+3. Implemented `storybook` setup on `shared-UI` library for component documentation
+4. Added a `shared-types` library for shared types to be used on both frontend and backend
+5. Added a `utils library` to provide basic utility functions accross the entire workspace
+6. Implemented `Infinite-scroll on frontend app`
 
 ## Generate code
 
