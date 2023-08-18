@@ -44,11 +44,18 @@ To deploy the task manager app, run `nx build task-manager` to build the applica
 
 This application was deployed to Vercel from a personal github project.
 
-The deploy scrip on vercel is `npx nx run task-manager:build` and deploys the output `dist/` accordingly!
+The deploy script on vercel is `npx nx run task-manager:build` and deploys the output `dist/` accordingly!
 
 Environment variables was set for the database connection string.
 
 The project uses Postgress db!
+
+## App features!
+
+1. Added a `shared-UI` library for components to be used accrosed the entire workspace
+2. Added a `shared-types` library for shared types to be used on both frontend and backend
+3. Added a `utils library` to provide basic utility functions accross the entire workspace
+4. Implemented `Infinite-scroll on frontend app`
 
 ## Set up CI!
 

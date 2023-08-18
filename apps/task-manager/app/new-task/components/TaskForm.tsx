@@ -94,6 +94,8 @@ const TaskForm = (props: UsersProps) => {
               router.replace('/');
             }, 1000);
           }
+        } else {
+          toast.error(`Complete all required fields`)
         }
       })
     } catch (error) {
