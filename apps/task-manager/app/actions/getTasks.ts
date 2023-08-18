@@ -1,3 +1,4 @@
+import { Task } from '@tasks-management/shared-types';
 import prisma from '../lib/prismadb';
 
 export default async function getTasks() {
@@ -11,7 +12,7 @@ export default async function getTasks() {
       }
     });
 
-    const newTasks = tasks.map((task) => ({
+    const newTasks = tasks.map((task: Task) => ({
       id: task.id,
       userId: task.userId,
       title: task.title,

@@ -40,7 +40,15 @@ Have a look at the [Nx Console extensions](https://nx.dev/nx-console). It provid
 
 ## Ready to deploy?
 
-Just run `nx build demoapp` to build the application. The build artifacts will be stored in the `dist/` directory, ready to be deployed.
+To deploy the task manager app, run `nx build task-manager` to build the application. The build artifacts will be stored in the `dist/` directory, ready to be deployed.
+
+This application was deployed to Vercel from a personal github project.
+
+The deploy scrip on vercel is `npx nx run task-manager:build` and deploys the output `dist/` accordingly!
+
+Environment variables was set for the database connection string.
+
+The project uses Postgress db!
 
 ## Set up CI!
 
